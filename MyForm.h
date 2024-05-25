@@ -66,6 +66,8 @@ namespace PhoneDirectory {
 	private: System::Windows::Forms::Button^ button6;
 	private: System::Windows::Forms::TextBox^ searchText2;
 	private: System::Windows::Forms::Button^ button7;
+	private: System::Windows::Forms::Button^ button8;
+	private: System::Windows::Forms::Button^ button9;
 
 	protected:
 
@@ -101,6 +103,8 @@ namespace PhoneDirectory {
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->searchText2 = (gcnew System::Windows::Forms::TextBox());
 			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -258,7 +262,7 @@ namespace PhoneDirectory {
 			// 
 			// button7
 			// 
-			this->button7->Location = System::Drawing::Point(89, 501);
+			this->button7->Location = System::Drawing::Point(12, 501);
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(238, 33);
 			this->button7->TabIndex = 18;
@@ -266,9 +270,31 @@ namespace PhoneDirectory {
 			this->button7->UseVisualStyleBackColor = true;
 			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
 			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(294, 501);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(238, 33);
+			this->button8->TabIndex = 19;
+			this->button8->Text = L"Sort By Name";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click);
+			// 
+			// button9
+			// 
+			this->button9->Location = System::Drawing::Point(567, 501);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(238, 33);
+			this->button9->TabIndex = 20;
+			this->button9->Text = L"Sort By Number";
+			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
+			// 
 			// MyForm
 			// 
 			this->ClientSize = System::Drawing::Size(1095, 546);
+			this->Controls->Add(this->button9);
+			this->Controls->Add(this->button8);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->searchText2);
 			this->Controls->Add(this->button6);
@@ -417,6 +443,40 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 	};
 }
 private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
+	updateContactsListBox();
+}
+private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
+	Contact temp;
+	Node* i, * j;
+	for (i = book->getHead(); i->next != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			if (i->contact.firstName > j->contact.firstName)
+			{
+				temp = i->contact;
+				i->contact = j->contact;
+				j->contact = temp;
+			}
+		}
+	}
+	updateContactsListBox();
+}
+private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
+	Contact temp;
+	Node* i, * j;
+	for (i = book->getHead(); i->next != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			if (i->contact.mobileNumber > j->contact.mobileNumber)
+			{
+				temp = i->contact;
+				i->contact = j->contact;
+				j->contact = temp;
+			}
+		}
+	}
 	updateContactsListBox();
 }
 };

@@ -15,6 +15,5 @@ public:
     bool searchContacts(const std::string& searchTerm);
     void deleteContact(const std::string& searchTerm);
     void editContact(const std::string& searchTerm, const Contact& updatedContact);
-    void sortContacts(const std::string& SortCriterion);
     Node* getHead() const;
 };
